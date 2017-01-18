@@ -17,38 +17,26 @@
  */
 package org.apache.hadoop.hdfs;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.net.URI;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivilegedAction;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.crypto.key.kms.KMSClientProvider;
 import org.apache.hadoop.crypto.key.kms.server.KMSConfiguration;
 import org.apache.hadoop.crypto.key.kms.server.KeyAuthorizationKeyProvider;
 import org.apache.hadoop.crypto.key.kms.server.MiniKMS;
-import org.apache.hadoop.fs.CommonConfigurationKeysPublic;
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FSDataOutputStream;
-import org.apache.hadoop.fs.FileSystemTestHelper;
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.security.authorize.ProxyUsers;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.*;
+import java.net.URI;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivilegedAction;
+
+import static org.junit.Assert.*;
 
 /**
  * This class tests the ACLs system through the full code path.  It overlaps
@@ -218,7 +206,7 @@ public class TestAclsEndToEnd {
 
   /**
    * Return a new {@link Configuration} with KMS ACLs appropriate to pass the
-   * full ACL test in {@link #doFullAclTest()} set.
+   * full ACL test in  set.
    *
    * @param hdfsUgi the hdfs user
    * @param keyadminUgi the keyadmin user
@@ -270,7 +258,7 @@ public class TestAclsEndToEnd {
 
   /**
    * Set the key ACLs appropriate to pass the full ACL test in
-   * {@link #doFullAclTest()} using the specified prefix.  The prefix should
+   *  using the specified prefix.  The prefix should
    * either be "whitelist.key.acl." or "key.acl.key1.".
    *
    * @param conf the configuration
@@ -294,7 +282,7 @@ public class TestAclsEndToEnd {
   /**
    * Test the full life cycle of a key using a config with whitelist key ACLs.
    * The configuration used is the correct configuration to pass the full ACL
-   * test in {@link #doFullAclTest()}.
+   * test in .
    *
    * @throws Exception thrown on test failure
    */
@@ -321,7 +309,7 @@ public class TestAclsEndToEnd {
   /**
    * Test the full life cycle of a key using a config with key ACLs.
    * The configuration used is the correct configuration to pass the full ACL
-   * test in {@link #doFullAclTest()}.
+   * test in .
    *
    * @throws Exception thrown on test failure
    */
@@ -347,7 +335,7 @@ public class TestAclsEndToEnd {
   /**
    * Test the full life cycle of a key using a config with whitelist key ACLs
    * and without blacklist ACLs.  The configuration used is the correct
-   * configuration to pass the full ACL test in {@link #doFullAclTest()}.
+   * configuration to pass the full ACL test in .
    *
    * @throws Exception thrown on test failure
    */
@@ -372,7 +360,7 @@ public class TestAclsEndToEnd {
   /**
    * Test the full life cycle of a key using a config with whitelist key ACLs
    * and without blacklist ACLs. The configuration used is the correct
-   * configuration to pass the full ACL test in {@link #doFullAclTest()}.
+   * configuration to pass the full ACL test in .
    *
    * @throws Exception thrown on test failure
    */
@@ -398,9 +386,6 @@ public class TestAclsEndToEnd {
    * Run a full key life cycle test using the provided configuration and users.
    *
    * @param conf the configuration
-   * @param hdfs the user to use as the hdfs user
-   * @param keyadmin the user to use as the keyadmin user
-   * @param user the user to use as the normal user
    * @throws Exception thrown if there is a test failure
    */
   private void doFullAclTest(final Configuration conf,
